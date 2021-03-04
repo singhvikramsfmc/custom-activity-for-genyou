@@ -1,0 +1,30 @@
+{
+  "name": "pref-activity",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "activity.js",
+  "scripts": {
+    "start": "webpack serve --hot --mode development"
+  },
+  "author": "amrit",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/amritgit23/pref-activity.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "bugs": {
+    "url": "https://github.com/amritgit23/pref-activity/issues"
+  },
+  "homepage": "https://github.com/amritgit23/pref-activity#readme",
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "https": "^1.0.0",
+    "require": "^2.4.20",
+    "webpack": "^5.24.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
