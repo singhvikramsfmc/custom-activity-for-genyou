@@ -4,21 +4,23 @@
   "description": "test",
   "main": "activity.js",
   "scripts": {
-    "start": "webpack serve --hot --mode development"
+    "start-dev": "webpack serve --hot --mode development",
+    "start": "node index.js", 
+    "heroku-postbuild": "webpack -p" 
   },
-  "author": "anjali",
+  "author": "amrit",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/anjali2908/testApp.git"
+    "url": "git+ssh://git@github.com/amritgit23/pref-activity.git"
   },
   "keywords": [
     "test"
   ],
   "bugs": {
-    "url": "https://github.com/anjali2908/testApp/issues"
+    "url": "https://github.com/amritgit23/pref-activity/issues"
   },
-  "homepage": "https://github.com/anjali2908/testApp#readme",
+  "homepage": "https://github.com/amritgit23/pref-activity#readme",
   "dependencies": {
     "browserify": "^17.0.0",
     "https": "^1.0.0",
