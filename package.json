@@ -2,6 +2,9 @@
   "name": "pref-activity",
   "version": "1.0.0",
   "description": "test",
+  "engines": {
+    "node": "12.x"
+  }
   "main": "activity.js",
   "scripts": {
     "start-dev": "webpack serve --hot --mode development",
