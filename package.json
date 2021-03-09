@@ -8,8 +8,7 @@
   "main": "activity.js",
   "scripts": {
     "start-dev": "webpack serve --hot --mode development",
-    "start": "node index.js", 
-    "heroku-postbuild": "webpack -p" 
+    "start": "node index.js"
   },
   "author": "amrit",
   "license": "ISC",
