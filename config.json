@@ -7,7 +7,7 @@
 	"type": "REST",
 	"userInterfaces": {
 		"configInspector": {
-			"size": "Medium"
+			"size": "Large"
 		}
 	}
 }
