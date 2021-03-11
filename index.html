@@ -6,11 +6,25 @@
 		
 	</head>
 	<body>
-		<h3>Configuration JSON file</h3>
+		<h3>Configuration JSON file for UMR SFMC</h3>
 		<textarea id="configuration"></textarea>
 		
-		<script src="js/postmonger.js"></script>
-		<script src="js/customActivity.js"></script>
+		<script type="text/javascript" src="js/postmonger.js"></script>
+		<script type="text/javascript" src="js/customActivity.js"></script>
+		
+		    <script type="text/javascript">
+        (function() {
+            var config = {
+                baseUrl: ''
+            };
+
+            var dependencies = [
+                'customActivity'
+            ];
+
+            require(config, dependencies);
+        })();
+    </script>
     <script src="bundle.js"></script>		
 	</body>
 </html>
