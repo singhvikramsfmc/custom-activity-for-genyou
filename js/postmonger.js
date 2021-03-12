@@ -3,6 +3,7 @@ define([
 ], function (
     Postmonger
 ) {
+    console.error( "POSTMONGER.JS ******** STARTED" );
    'use strict';
     var connection = new Postmonger.Session();
     var token;
