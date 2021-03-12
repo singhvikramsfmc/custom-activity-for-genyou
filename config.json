@@ -1,6 +1,7 @@
 ﻿{
 	"workflowApiVersion": "1.1",
 	"metaData": {
+		logger.debug("Below THE IMAGE LOAD")
 		"icon": "/images/UMR.png",
 		"category": "message"
 	},
