@@ -1,9 +1,13 @@
-define([
+
+   
+    
+    define([
     'postmonger'
-], function(
-    Postmonger
-) {
+], function(Postmonger){
     'use strict';
+   // console.log(postmonger);
+    console.log(Postmonger);
+});
 
     var connection = new Postmonger.Session();
     var payload = {};
@@ -196,4 +200,4 @@ define([
         return $('#select1').find('option:selected').attr('value').trim();
     }
 
-});
+
