@@ -10,19 +10,20 @@
     "start-dev": "webpack serve --hot --mode development",
     "start": "node index.js"
   },
-  "author": "amrit",
+  "author": "Vikram",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/amritgit23/pref-activity.git"
+    "url": "git+ssh://git@github.com/singhvikramsfmc/custom-activity-for-genyou.git"
+                     
   },
   "keywords": [
     "test"
   ],
   "bugs": {
-    "url": "https://github.com/amritgit23/pref-activity/issues"
+    "url": "https://github.com/singhvikramsfmc/custom-activity-for-genyou/issues"
   },
-  "homepage": "https://github.com/amritgit23/pref-activity#readme",
+  "homepage": "https://github.com/singhvikramsfmc/custom-activity-for-genyou#readme",
   "dependencies": {
     "browserify": "^17.0.0",
     "https": "^1.0.0",
