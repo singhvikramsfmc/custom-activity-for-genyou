@@ -1,3 +1,12 @@
+
+  define([
+    'postmonger'
+], function(
+    Postmonger
+) {
+    'use strict';
+
+
 var h = {
   "lst_nm": "Wagner",
   "first_nm": "Michelle",
@@ -8,6 +17,8 @@ var h = {
   "user_type": "Applications",
   "calling_app_name": "UMR_SalesForce"
   }
+  
+
 
 var connection = new Postmonger.Session();
 
@@ -43,6 +54,6 @@ connection.on('initActivity',function(data){
 
 connection.on('clickedNext',function(){
  var configuration = JSON.parse(document.getElementById('configuration').value);
- connection.trigger('updateActivity',configuration);
+ connection.trigger('updateActivity',configuration)});
+ 
 });
-
