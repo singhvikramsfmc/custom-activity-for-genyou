@@ -1,11 +1,11 @@
-//define([
-//    'postmonger'
-//], function(
- //   Postmonger
-//) 
-//{
- //   'use strict';
-    var Postmonger = require('postmonger');
+define([
+    'js/postmonger'
+], function(
+   Postmonger
+) 
+{
+   'use strict';
+    
     var connection = new Postmonger.Session();
     var payload = {};
     var lastStepEnabled = false;
@@ -197,4 +197,4 @@
         return $('#select1').find('option:selected').attr('value').trim();
     }
 
-//});
+});
