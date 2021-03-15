@@ -1,197 +1,143 @@
+define([
+    'postmonger'
+], function (
+    Postmonger
+) {
+        'use strict';
 
-       define(['postmonger'], function(Postmonger) {
-    'use strict';
+        var connection = new Postmonger.Session();
+        var authTokens = {};
+        var payload = {};
+        var schema = {};
 
+        $(window).ready(onRender);
 
-    var connection = new Postmonger.Session();
-    var payload = {};
-    var lastStepEnabled = false;
-    var steps = [ // initialize to the same value as what's set in config.json for consistency
-        { "label": "Step 1", "key": "step1" },
-        { "label": "Step 2", "key": "step2" },
-        { "label": "Step 3", "key": "step3" },
-        { "label": "Step 4", "key": "step4", "active": false }
-    ];
-    var currentStep = steps[0].key;
+        connection.on('initActivity', initialize);
+        connection.on('requestedTokens', onGetTokens);
+        connection.on('requestedEndpoints', onGetEndpoints);
 
-    $(window).ready(onRender);
+        connection.on('clickedNext', save);
 
-    connection.on('initActivity', initialize);
-    connection.on('requestedTokens', onGetTokens);
-    connection.on('requestedEndpoints', onGetEndpoints);
+        function onRender() {
+            // JB will respond the first time 'ready' is called with 'initActivity'
+            connection.trigger('ready');
 
-    connection.on('clickedNext', onClickedNext);
-    connection.on('clickedBack', onClickedBack);
-    connection.on('gotoStep', onGotoStep);
+            connection.trigger('requestTokens');
+            connection.trigger('requestEndpoints');
 
-    function onRender() {
-        // JB will respond the first time 'ready' is called with 'initActivity'
-        connection.trigger('ready');
+            // request schema
+            connection.trigger('requestSchema');
 
-        connection.trigger('requestTokens');
-        connection.trigger('requestEndpoints');
-
-        // Disable the next button if a value isn't selected
-        $('#select1').change(function() {
-            var message = getMessage();
-            connection.trigger('updateButton', { button: 'next', enabled: Boolean(message) });
-
-            $('#message').html(message);
-        });
-
-        // Toggle step 4 active/inactive
-        // If inactive, wizard hides it and skips over it during navigation
-        $('#toggleLastStep').click(function() {
-            lastStepEnabled = !lastStepEnabled; // toggle status
-            steps[3].active = !steps[3].active; // toggle active
-
-            connection.trigger('updateSteps', steps);
-        });
-    }
-
-    function initialize (data) {
-        if (data) {
-            payload = data;
         }
 
-        var message;
-        var hasInArguments = Boolean(
-            payload['arguments'] &&
-            payload['arguments'].execute &&
-            payload['arguments'].execute.inArguments &&
-            payload['arguments'].execute.inArguments.length > 0
-        );
+        // Broadcast in response to a requestSchema event called by the custom application.
+        connection.on('requestedSchema', function (data) {
+            if (data.error) {
+                console.error(data.error);
+            } else {
+                schema = data['schema'];
+            }
+            console.log('*** Schema ***', JSON.stringify(schema));
+        });
 
-        var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
+        function initialize(data) {
+            console.log(data);
+            if (data) {
+                payload = data;
+            }
 
-        $.each(inArguments, function(index, inArgument) {
-            $.each(inArgument, function(key, val) {
-                if (key === 'message') {
-                    message = val;
-                }
+            var hasInArguments = Boolean(
+                payload['arguments'] &&
+                payload['arguments'].execute &&
+                payload['arguments'].execute.inArguments &&
+                payload['arguments'].execute.inArguments.length > 0
+            );
+
+            var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
+
+            console.log(inArguments);
+
+            $.each(inArguments, function (index, inArgument) {
+                $.each(inArgument, function (key, val) {
+
+
+                });
             });
-        });
 
-        // If there is no message selected, disable the next button
-        if (!message) {
-            showStep(null, 1);
-            connection.trigger('updateButton', { button: 'next', enabled: false });
-            // If there is a message, skip to the summary step
-        } else {
-            $('#select1').find('option[value='+ message +']').attr('selected', 'selected');
-            $('#message').html(message);
-            showStep(null, 3);
-        }
-    }
-
-    function onGetTokens (tokens) {
-        // Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
-        // console.log(tokens);
-    }
-
-    function onGetEndpoints (endpoints) {
-        // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-        // console.log(endpoints);
-    }
-
-    function onClickedNext () {
-        if (
-            (currentStep.key === 'step3' && steps[3].active === false) ||
-            currentStep.key === 'step4'
-        ) {
-            save();
-        } else {
-            connection.trigger('nextStep');
-        }
-    }
-
-    function onClickedBack () {
-        connection.trigger('prevStep');
-    }
-
-    function onGotoStep (step) {
-        showStep(step);
-        connection.trigger('ready');
-    }
-
-    function showStep(step, stepIndex) {
-        if (stepIndex && !step) {
-            step = steps[stepIndex-1];
+            connection.trigger('updateButton', {
+                button: 'next',
+                text: 'done',
+                visible: true
+            });
         }
 
-        currentStep = step;
+        function onGetTokens(tokens) {
+            console.log(tokens);
+            authTokens = tokens;
+        }
 
-        $('.step').hide();
+        function onGetEndpoints(endpoints) {
+            console.log(endpoints);
+        }
 
-        switch(currentStep.key) {
-            case 'step1':
-                $('#step1').show();
-                connection.trigger('updateButton', {
-                    button: 'next',
-                    enabled: Boolean(getMessage())
-                });
-                connection.trigger('updateButton', {
-                    button: 'back',
-                    visible: false
-                });
-                break;
-            case 'step2':
-                $('#step2').show();
-                connection.trigger('updateButton', {
-                    button: 'back',
-                    visible: true
-                });
-                connection.trigger('updateButton', {
-                    button: 'next',
-                    text: 'next',
-                    visible: true
-                });
-                break;
-            case 'step3':
-                $('#step3').show();
-                connection.trigger('updateButton', {
-                     button: 'back',
-                     visible: true
-                });
-                if (lastStepEnabled) {
-                    connection.trigger('updateButton', {
-                        button: 'next',
-                        text: 'next',
-                        visible: true
-                    });
-                } else {
-                    connection.trigger('updateButton', {
-                        button: 'next',
-                        text: 'done',
-                        visible: true
-                    });
+        // schema parsing
+        // [{
+        //     "key": "Event.APIEvent-cbf6ce98-ba4f-a5c1-cc68-503ca1f60c39.Id",
+        //     "type": "Text",
+        //     "length": 18,
+        //     "default": null,
+        //     "isNullable": null,
+        //     "isPrimaryKey": null
+        // }, {
+        //     "key": "Event.APIEvent-cbf6ce98-ba4f-a5c1-cc68-503ca1f60c39.Name",
+        //     "type": "Text",
+        //     "length": 50,
+        //     "default": null,
+        //     "isNullable": null,
+        //     "isPrimaryKey": null
+        // }, {
+        //     "key": "Event.APIEvent-cbf6ce98-ba4f-a5c1-cc68-503ca1f60c39.Mobile",
+        //     "type": "Text",
+        //     "length": 50,
+        //     "default": null,
+        //     "isNullable": null,
+        //     "isPrimaryKey": null
+        // }]
+        function extractFields() {
+
+            var formArg = {};
+            console.log('*** Schema parsing ***', JSON.stringify(schema));
+            if (schema !== 'undefined' && schema.length > 0) {
+                // the array is defined and has at least one element
+                for (var i in schema) {
+                    var field = schema[i];
+                    var index = field.key.lastIndexOf('.');
+                    var name = field.key.substring(index + 1);
+                    // save only event data source fields
+                    // {"key":"Event.APIEvent-ed211fdf-2260-8057-21b1-a1488f701f6a.offerId","type":"Text",
+                    // "length":50,"default":null,"isNullable":null,"isPrimaryKey":null}
+                    if (field.key.indexOf("APIEvent") !== -1)
+                        formArg[name] = "{{" + field.key + "}}";
                 }
-                break;
-            case 'step4':
-                $('#step4').show();
-                break;
+            }
+            return formArg;
         }
-    }
 
-    function save() {
-        var name = $('#select1').find('option:selected').html();
-        var value = getMessage();
+        function save() {
+            var postcardURLValue = $('#postcard-url').val();
+            var postcardTextValue = $('#postcard-text').val();
+            var fields = extractFields();
 
-        // 'payload' is initialized on 'initActivity' above.
-        // Journey Builder sends an initial payload with defaults
-        // set by this activity's config.json file.  Any property
-        // may be overridden as desired.
-        payload.name = name;
+            payload['arguments'].execute.inArguments = [{
+                "tokens": authTokens,
+                "emailAddress": "{{Contact.Attribute.PostcardJourney.EmailAddress}}",
+                "fields": fields
+            }];
 
-        payload['arguments'].execute.inArguments = [{ "message": value }];
+            payload['metaData'].isConfigured = true;
 
-        payload['metaData'].isConfigured = true;
+            console.log(payload);
+            connection.trigger('updateActivity', payload);
+        }
 
-        connection.trigger('updateActivity', payload);
-    }
-
-    function getMessage() {
-        return $('#select1').find('option:selected').attr('value').trim();
-    }
-
-});
+    });
