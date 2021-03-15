@@ -1,10 +1,3 @@
-define([
-    'postmonger'
-], function (
-    Postmonger
-) {
-        'use strict';
-
         var connection = new Postmonger.Session();
         var authTokens = {};
         var payload = {};
@@ -140,4 +133,4 @@ define([
             connection.trigger('updateActivity', payload);
         }
 
-    });
+  
