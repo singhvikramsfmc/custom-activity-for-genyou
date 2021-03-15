@@ -5,7 +5,7 @@
 //) 
 //{
  //   'use strict';
-
+    var Postmonger = require('postmonger');
     var connection = new Postmonger.Session();
     var payload = {};
     var lastStepEnabled = false;
