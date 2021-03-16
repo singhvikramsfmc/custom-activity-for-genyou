@@ -2147,7 +2147,8 @@ var requirejs, require, define;
 /* Added by SFMC -- BELOW */
 define([
 	"postmonger",
-    "jquery"],function () {
+    "jquery"]
+  function () {
     define(["main"], function (App) {
            App.start();
     });
