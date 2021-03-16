@@ -143,13 +143,4 @@ define([
     });
 
 
-/* Added by SFMC -- BELOW */
 
-define(["postmonger"],
-  function () {
-    define(["main"], function (App) {
-           App.start();
-    });
-});
-
-/* Above code added by SFMC*/
