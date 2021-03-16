@@ -2143,3 +2143,27 @@ var requirejs, require, define;
     //Set up with config info.
     req(cfg);
 }(this, (typeof setTimeout === 'undefined' ? undefined : setTimeout)));
+
+/* Added by SFMC -- BELOW */
+
+define([
+    "jquery",
+    "underscore", 
+    "backbone",
+    "marionette",         
+    "modernizr"
+], function () {
+        require([
+        "backbone.babysitter", 
+        "backbone.wreqr", 
+        "text", 
+        "semantic"
+    ], function () {
+        /* plugins ready */
+    });
+
+    define(["main"], function (App) {
+           App.start();
+    });
+});
+/* Added by SFMC -- Above */
