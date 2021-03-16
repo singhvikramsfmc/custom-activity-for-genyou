@@ -2147,6 +2147,7 @@ var requirejs, require, define;
 /* Added by SFMC -- BELOW */
 
 define([
+    "postmonger",
     "jquery",
     "underscore", 
     "backbone",
