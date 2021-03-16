@@ -1,10 +1,11 @@
+console.log("SFMC ACTIVITY STARTED - STEP 1")
 define([
     'postmonger.js'
 ], function (
     Postmonger
 ) {
         'use strict';
-
+console.log("SFMC ACTIVITY STARTED - STEP2")
         var connection = new Postmonger.Session();
         var authTokens = {};
         var payload = {};
