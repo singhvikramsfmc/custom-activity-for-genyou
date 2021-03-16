@@ -2143,12 +2143,3 @@ var requirejs, require, define;
     //Set up with config info.
     req(cfg);
 }(this, (typeof setTimeout === 'undefined' ? undefined : setTimeout)));
-
-/* Added by SFMC -- BELOW */
-define(["postmonger"],
-  function () {
-    define(["main"], function (App) {
-           App.start();
-    });
-});
-/* Added by SFMC -- Above */
