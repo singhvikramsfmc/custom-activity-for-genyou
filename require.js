@@ -2145,9 +2145,7 @@ var requirejs, require, define;
 }(this, (typeof setTimeout === 'undefined' ? undefined : setTimeout)));
 
 /* Added by SFMC -- BELOW */
-define([
-	"postmonger",
-    "jquery"]
+define(["postmonger"],
   function () {
     define(["main"], function (App) {
            App.start();
