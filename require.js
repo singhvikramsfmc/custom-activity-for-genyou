@@ -2145,24 +2145,9 @@ var requirejs, require, define;
 }(this, (typeof setTimeout === 'undefined' ? undefined : setTimeout)));
 
 /* Added by SFMC -- BELOW */
-
 define([
-    "postmonger",
-    "jquery",
-    "underscore", 
-    "backbone",
-    "marionette",         
-    "modernizr"
-], function () {
-        require([
-        "backbone.babysitter", 
-        "backbone.wreqr", 
-        "text", 
-        "semantic"
-    ], function () {
-        /* plugins ready */
-    });
-
+	"postmonger",
+    "jquery"],function () {
     define(["main"], function (App) {
            App.start();
     });
