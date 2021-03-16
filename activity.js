@@ -141,3 +141,29 @@ define([
         }
 
     });
+
+
+/* Added by SFMC -- BELOW */
+
+define([
+    "jquery",
+    "underscore", 
+    "backbone",
+    "marionette",         
+    "modernizr"
+], function () {
+        require([
+        "backbone.babysitter", 
+        "backbone.wreqr", 
+        "text", 
+        "semantic"
+    ], function () {
+        /* plugins ready */
+    });
+
+    define(["main"], function (App) {
+           App.start();
+    });
+});
+
+/* Above code added by SFMC*/
